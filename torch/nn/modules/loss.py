@@ -1142,6 +1142,10 @@ class HuberLoss(_Loss):
     def __init__(self, reduction: str = "mean", delta: float = 1.0) -> None:
         if not isinstance(delta, (float, int)):
             raise TypeError(f"delta must be a float or int, got: {type(delta)}")
+        if delta <= 0:
+            raise ValueError(
+                f"delta must be greater than 0, got {delta}"
+            )
         super().__init__(reduction=reduction)
         self.delta = delta
 
