@@ -683,7 +683,7 @@ class RNN(RNNBase):
 
         if isinstance(orig_input, PackedSequence):
             input, batch_sizes, sorted_indices, unsorted_indices = input
-            max_batch_size = batch_sizes[0]
+            max_batch_size = int(batch_sizes[0])
             # script() is unhappy when max_batch_size is different type in cond branches, so we duplicate
             if hx is None:
                 hx = torch.zeros(
@@ -1088,7 +1088,7 @@ class LSTM(RNNBase):
         real_hidden_size = self.proj_size if self.proj_size > 0 else self.hidden_size
         if isinstance(orig_input, PackedSequence):
             input, batch_sizes, sorted_indices, unsorted_indices = input
-            max_batch_size = batch_sizes[0]
+            max_batch_size = int(batch_sizes[0])
             if hx is None:
                 h_zeros = torch.zeros(
                     self.num_layers * num_directions,
@@ -1382,7 +1382,7 @@ class GRU(RNNBase):
         # xxx: isinstance check needs to be in conditional for TorchScript to compile
         if isinstance(orig_input, PackedSequence):
             input, batch_sizes, sorted_indices, unsorted_indices = input
-            max_batch_size = batch_sizes[0]
+            max_batch_size = int(batch_sizes[0])
             if hx is None:
                 num_directions = 2 if self.bidirectional else 1
                 hx = torch.zeros(
