@@ -50,6 +50,10 @@ class PairwiseDistance(Module):
         self, p: float = 2.0, eps: float = 1e-6, keepdim: bool = False
     ) -> None:
         super().__init__()
+        if eps <= 0:
+            raise ValueError(
+                f"eps must be greater than 0 to avoid division by zero, got {eps}"
+            )
         self.norm = p
         self.eps = eps
         self.keepdim = keepdim
