@@ -660,6 +660,10 @@ class CELU(Module):
 
     def __init__(self, alpha: float = 1.0, inplace: bool = False) -> None:
         super().__init__()
+        if alpha <= 0:
+            raise ValueError(
+                f"alpha must be greater than 0, got {alpha}"
+            )
         self.alpha = alpha
         self.inplace = inplace
 
