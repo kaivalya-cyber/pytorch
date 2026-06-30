@@ -2766,8 +2766,8 @@ def embedding_bag(
             if not torch.jit.is_scripting():
                 type_str = str(type(offsets))
             raise ValueError(
-                "if input is 2D, then offsets has to be None"
-                ", as input is treated is a mini-batch of"
+                "If input is 2D, then offsets must be None"
+                ", as input is treated as a mini-batch of"
                 " fixed length sequences. However, found "
                 f"offsets of type {type_str}"
             )
@@ -2780,9 +2780,10 @@ def embedding_bag(
             per_sample_weights = per_sample_weights.reshape(-1)
     elif input.dim() == 1:
         if offsets is None:
-            raise ValueError("offsets has to be a 1D Tensor but got None")
+            raise ValueError("offsets must be a 1D Tensor but got None instead")
         if offsets.dim() != 1:
-            raise ValueError("offsets has to be a 1D Tensor")
+            raise ValueError("offsets must be a 1D Tensor"
+                             f", but got a {offsets.dim()}D Tensor instead")
     else:
         raise ValueError(
             f"input has to be 1D or 2D Tensor, but got Tensor of dimension {input.dim()}"
